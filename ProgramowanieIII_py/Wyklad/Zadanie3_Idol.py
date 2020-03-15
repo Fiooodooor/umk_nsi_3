@@ -18,7 +18,7 @@ class IdolGraph():
                     if p not in self.n_deg_dict:
                         self.n_deg_dict[p] = 0
                     if q not in self.n_deg_dict:
-                        self.n_deg_dict[q] = 0
+                        self.n_deg_dict[q] = 1
                     else:
                         self.n_deg_dict[q] += 1
         except FileNotFoundError or IOError:
