@@ -14,13 +14,13 @@ class IdolGraph():
                     p, q = int(buffor_line[0]), int(buffor_line[1])
                     if p not in self.graph:
                         self.graph[p] = []
-                    self.graph[p].append(q)
-                    if p not in self.n_deg_dict:
                         self.n_deg_dict[p] = 0
-                    if q not in self.n_deg_dict:
+                    if q not in self.graph:
+                        self.graph[q] = []
                         self.n_deg_dict[q] = 1
                     else:
                         self.n_deg_dict[q] += 1
+                    self.graph[p].append(q)
         except FileNotFoundError or IOError:
             print("Error while loading graph from file. Script will now terminate.")
             exit(-1)
@@ -40,7 +40,8 @@ class IdolGraph():
 
     def look_for_idol(self) -> bool:
         for it in self.n_deg_dict:
-            if self.n_deg_dict[it] == 0 and len(self.graph[it]) == (len(self.n_deg_dict)-1):
+            if self.n_deg_dict[it] >= (len(self.n_deg_dict)-1) and len(self.graph[it]) == 0:
+                #print("Idol to " + str(it))
                 return True
         return False
 
